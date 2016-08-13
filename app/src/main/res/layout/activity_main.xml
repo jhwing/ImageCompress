@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="stark.imagecompress.demo.MainActivity">
+
+    <LinearLayout
+        android:id="@+id/showImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="250dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/srcImage"
+                android:layout_width="300dp"
+                android:layout_height="225dp"
+                android:layout_gravity="center_horizontal"
+                android:scaleType="fitXY"
+                android:src="@drawable/test_img" />
+
+            <TextView
+                android:id="@+id/srcSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:textColor="@android:color/secondary_text_light"
+                android:textSize="12sp"
+                tools:text="img size : 32 kb" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="250dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/compressImage"
+                android:layout_width="300dp"
+                android:layout_height="225dp"
+                android:layout_gravity="center_horizontal"
+                android:scaleType="fitXY"
+                android:src="@drawable/test_img" />
+
+            <TextView
+                android:id="@+id/compressSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="chooseImage"
+        android:text="Choose Image" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="compressByScale"
+        android:text="compress by scale" />
+
+    <Button
+        android:id="@+id/qualityBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="compressByQuality"
+        android:text="compress by quality" />
+
+    <Button
+        android:id="@+id/sampleSizeBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="compressBySampleSize"
+        android:text="compress by sample size" />
+</LinearLayout>
