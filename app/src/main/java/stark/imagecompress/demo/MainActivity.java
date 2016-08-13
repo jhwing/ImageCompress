@@ -22,8 +22,10 @@ public class MainActivity extends AppCompatActivity {
 
     Button qualityBtn;
     Button sampleSizeBtn;
+    Button sampleSizeByWHBtn;
 
     Bitmap srcBitmap;
+    Bitmap compressBitmap;
 
     int quality = 100;
 
@@ -32,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     int sampleSize = 1;
 
     String sampleSizeText;
+
+    String sampleSizeByWHText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +49,11 @@ public class MainActivity extends AppCompatActivity {
         qualityText = qualityBtn.getText().toString();
         sampleSizeBtn = (Button) findViewById(R.id.sampleSizeBtn);
         sampleSizeText = sampleSizeBtn.getText().toString();
-
+        sampleSizeByWHBtn = (Button) findViewById(R.id.sampleSizeByWHBtn);
+        sampleSizeByWHText = sampleSizeByWHBtn.getText().toString();
         srcBitmap = ((BitmapDrawable) srcImage.getDrawable()).getBitmap();
         srcSize.setText(getSizeText(srcBitmap.getByteCount() / 1024));
+        compressBitmap = ((BitmapDrawable) compressImage.getDrawable()).getBitmap();
     }
 
     @NonNull
@@ -56,28 +62,44 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void chooseImage(View view) {
-        
+
     }
 
     public void compressByScale(View view) {
-        Bitmap bitmap = ImageCompress.getCompressBitmapByScale(srcBitmap, 100, 100);
+        Bitmap bitmap = ImageCompress.getCompressBitmapByScale(compressBitmap, 100, 100);
         setCompressImage(bitmap);
     }
 
     public void compressByQuality(View view) {
-        qualityBtn.setText(qualityText + " quality:" + quality);
         if (quality < 10) {
-            return;
+            quality = 100;
         }
-        Bitmap bitmap = ImageCompress.getCompressBitmapByQuality(srcBitmap, quality -= 10);
+        Bitmap bitmap = ImageCompress.getCompressBitmapByQuality(compressBitmap, quality);
+        qualityBtn.setText(qualityText + " quality:" + quality);
         setCompressImage(bitmap);
+        quality -= 10;
     }
 
     public void compressBySampleSize(View view) {
         sampleSizeBtn.setText(sampleSizeText + " sample size:" + sampleSize);
-        Bitmap bitmap = ImageCompress.getCompressBitmapBySampleSize(srcBitmap, sampleSize++);
+        Bitmap bitmap = ImageCompress.getCompressBitmapBySampleSize(compressBitmap, sampleSize *= 2);
         setCompressImage(bitmap);
     }
+
+    public void compressBySampleSizeReqWidthAndHeight(View view) {
+        sampleSizeByWHBtn.setText(sampleSizeByWHText + 100 + ":" + 100);
+        Bitmap bitmap = ImageCompress.getCompressBitmapBySample(compressBitmap, 100, 100);
+        setCompressImage(bitmap);
+    }
+
+    public void chooseCompressImage(View view) {
+        compressBitmap = ((BitmapDrawable) compressImage.getDrawable()).getBitmap();
+    }
+
+    public void chooseSrcImage(View view) {
+        compressBitmap = ((BitmapDrawable) srcImage.getDrawable()).getBitmap();
+    }
+
 
     private void setCompressImage(Bitmap bitmap) {
         compressImage.setImageBitmap(bitmap);
